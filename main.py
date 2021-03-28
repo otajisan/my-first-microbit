@@ -4,7 +4,7 @@ radio.on_received_number(on_received_number)
 
 def on_first():
     count_down()
-    sing(get_random_song())
+    sing(opening())
 
 def count_down():
     for num in [3, 2, 1]:
@@ -20,9 +20,16 @@ def smile():
     . # # # .
     """)
 
+def on_button_pressed_a():
+    sing_random_song()
+input.on_button_pressed(Button.A, on_button_pressed_a)
+
 def on_received_string(receivedString):
     basic.show_string(receivedString)
 radio.on_received_string(on_received_string)
+
+def opening():
+    return kirakiraboshi()[0]
 
 def kirakiraboshi():
     return [
@@ -32,7 +39,7 @@ def kirakiraboshi():
         "G - G - F - F - E - E - D - - -",
         "C - C - G - G - A - A - G - - -",
         "F - F - E - E - D - D - C - - -"
-    ].join(" ")
+    ]
 
 def kaerunouta():
     return [
@@ -40,7 +47,7 @@ def kaerunouta():
         "E - F - G - A - G - F - E - - -",
         "C - - - C - - - C - - - C - - -",
         "C C D D E E F F E - D - C - - -"
-    ].join(" ")
+    ]
 
 def get_random_song():
     if Math.random_boolean():
@@ -52,8 +59,11 @@ def sing(song):
     bpm = 240
     music.play_melody(song, bpm)
 
+def sing_random_song():
+    sing(get_random_song().join(" "))
+
 radio.set_group(1)
-radio.send_string(kirakiraboshi())
+radio.send_string(kirakiraboshi().join(" "))
 
 on_first()
 
